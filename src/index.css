@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-panel: #141414;
+  --color-panel-2: #1c1c1c;
+  --color-border: #2a2a2a;
+  --color-accent: #d97706;
+  --color-accent-soft: #f59e0b;
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
+  --font-display: "Rajdhani", "Inter", system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: var(--color-bg);
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Markdown body styling */
+.rule-body {
+  line-height: 1.6;
+  color: #d4d4d4;
+}
+.rule-body p + p,
+.rule-body ul + p,
+.rule-body p + ul {
+  margin-top: 0.85rem;
+}
+.rule-body ul {
+  list-style: disc;
+  margin-left: 1.25rem;
+}
+.rule-body ol {
+  list-style: decimal;
+  margin-left: 1.5rem;
+}
+.rule-body strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Subtle scrollbar styling for the dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
