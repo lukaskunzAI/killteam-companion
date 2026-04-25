@@ -25,12 +25,18 @@ export async function deriveKey(password, saltB64, kdfParams) {
   );
 }
 
-export async function decryptPayload(payload, password) {
+export async function decryptCorpus(payload, password) {
   const key = await deriveKey(password, payload.salt, payload.kdf);
   const plaintext = await crypto.subtle.decrypt(
     { name: "AES-GCM", iv: fromB64(payload.iv) },
     key,
     fromB64(payload.ct),
   );
-  return new TextDecoder().decode(plaintext);
+  const text = new TextDecoder().decode(plaintext);
+  const data = JSON.parse(text);
+  // Backward-compat: older builds shipped a flat array of core rule sections.
+  if (Array.isArray(data)) {
+    return { version: 0, coreRules: data, teams: [] };
+  }
+  return data;
 }

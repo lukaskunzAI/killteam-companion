@@ -6,4 +6,6 @@ dist
 .env.local
 *.log
 rules-source.json
+corpus-source.json
+teams-source/
 .claude/

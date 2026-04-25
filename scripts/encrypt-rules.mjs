@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { webcrypto as crypto } from "node:crypto";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
-const SOURCE = join(ROOT, "rules-source.json");
+const SOURCE = join(ROOT, "corpus-source.json");
 const OUT_DIR = join(ROOT, "public");
 const OUT = join(OUT_DIR, "rules.enc.json");
 
@@ -17,7 +17,7 @@ const password =
   "killteam-2026"; // dev default; override via env for real deploys
 
 if (!existsSync(SOURCE)) {
-  console.error(`Missing ${SOURCE}. Drop the extracted rules JSON there.`);
+  console.error(`Missing ${SOURCE}. Run \`node scripts/build-corpus.mjs\` first.`);
   process.exit(1);
 }
 

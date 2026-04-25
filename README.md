@@ -37,16 +37,29 @@ npm run preview     # previews the production bundle
 KT_APP_PASSWORD="my-shared-pw" node scripts/encrypt-rules.mjs
 ```
 
-## Updating the rules content
+## Updating the content
 
-Re-run the extractor against a fresh Wahapedia HTML dump:
+The corpus is built from two extractors and one combiner. All three artefacts
+(`rules-source.json`, `teams-source/*.json`, `corpus-source.json`) are
+gitignored — only the encrypted `public/rules.enc.json` is committed.
 
+Core Rules:
 ```bash
-curl -sA "Mozilla/5.0" \
-  https://wahapedia.ru/kill-team3/the-rules/core-rules/ \
-  -o /tmp/kt_core.html
+curl -sA "Mozilla/5.0" https://wahapedia.ru/kill-team3/the-rules/core-rules/ -o /tmp/kt_core.html
 python3 scripts/extract-rules.py /tmp/kt_core.html ./rules-source.json
-node scripts/encrypt-rules.mjs
+```
+
+A team (e.g. Vespid Stingwings):
+```bash
+curl -sA "Mozilla/5.0" https://wahapedia.ru/kill-team3/kill-teams/vespid-stingwings/ -o /tmp/team.html
+mkdir -p teams-source
+python3 scripts/extract-team.py /tmp/team.html teams-source/vespid-stingwings.json vespid-stingwings "Vespid Stingwings"
+```
+
+Combine + encrypt:
+```bash
+node scripts/build-corpus.mjs
+KT_APP_PASSWORD="..." node scripts/encrypt-rules.mjs
 ```
 
 Requires `beautifulsoup4` + `lxml`: `pip3 install --user beautifulsoup4 lxml`.

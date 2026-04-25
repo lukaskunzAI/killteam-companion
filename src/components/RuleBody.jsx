@@ -1,6 +1,6 @@
-// Render the markdown-ish body text we pulled from Wahapedia.
-// Recognised: paragraph blocks (\n\n separator), `- ` bullet lists,
-// `1. ` ordered lists, `**bold**` inline.
+// Render the markdown-ish body text we pull from Wahapedia. Recognises
+// paragraph blocks (\n\n separator), `- ` bullet lists, `1. ` ordered lists,
+// and `**bold**` inline.
 const inlineBold = (s, keyPrefix = "i") => {
   const parts = s.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((p, i) =>
@@ -12,15 +12,15 @@ const inlineBold = (s, keyPrefix = "i") => {
   );
 };
 
-export default function RuleBody({ body }) {
+export default function RuleBody({ body, className = "" }) {
   if (!body) return null;
   const blocks = body.split(/\n\n+/);
   return (
-    <div className="rule-body">
+    <div className={`prose-rule ${className}`}>
       {blocks.map((block, idx) => {
         const lines = block.split("\n");
-        const isUl = lines.every((l) => l.trim().startsWith("- "));
-        const isOl = lines.every((l) => /^\s*\d+\.\s/.test(l));
+        const isUl = lines.length > 1 && lines.every((l) => l.trim().startsWith("- "));
+        const isOl = lines.length > 1 && lines.every((l) => /^\s*\d+\.\s/.test(l));
         if (isUl) {
           return (
             <ul key={idx}>
