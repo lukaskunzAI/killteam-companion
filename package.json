@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/encrypt-rules.mjs && vite build",
+    "build": "vite build",
+    "build:encrypt": "node scripts/encrypt-rules.mjs && vite build",
     "preview": "vite preview",
     "encrypt": "node scripts/encrypt-rules.mjs"
   },

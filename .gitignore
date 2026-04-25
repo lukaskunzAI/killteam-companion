@@ -6,5 +6,4 @@ dist
 .env.local
 *.log
 rules-source.json
-public/rules.enc.json
 .claude/
